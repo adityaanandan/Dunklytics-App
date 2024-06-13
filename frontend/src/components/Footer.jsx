@@ -7,7 +7,7 @@ const Footer = () => {
     
 
     <p className="font-poppins mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 dark:text-gray-400">
-      Check our socials below to stay updated on our latest projects and updates!
+      Check our socials below to stay updated on our latest projects and ventures!
     </p>
 
     <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">

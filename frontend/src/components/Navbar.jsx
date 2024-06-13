@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 
 const Navbar = () => {
-    const linkclassName = ({ isActive }) => isActive ? 'bg-black text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2' : 'text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+    const linkclassName = ({ isActive }) => isActive ? "font-poppins text-black text-xl bg-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2" : "font-poppins text-white text-xl hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
   return (
     <nav className="bg-zinc-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -14,26 +14,26 @@ const Navbar = () => {
             
             <div className="md:ml-auto">
               <div className="flex space-x-2">
-                <a
-                  href="/"
-                  className="font-poppins text-black text-xl bg-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                  >Home</a
+                <NavLink
+                  to="/"
+                  className= {linkclassName}
+                  >Home</NavLink
                 >
-                <a
-                  href="/jobs.html"
-                  className="font-poppins text-white text-xl hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                  >Stats</a
+                <NavLink
+                  to="/stats"
+                  className={linkclassName}
+                  >Stats</NavLink
                 >
-                <a
-                  href="/add-job.html"
-                  className="font-poppins text-white text-xl hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                  >Picks</a
+                <NavLink
+                  to="/picks"
+                  className={linkclassName}
+                  >Picks</NavLink
                 >
 
-                <a
-                  href="/add-job.html"
-                  className="font-poppins text-white text-xl hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                  >About</a
+                <NavLink
+                  to="/about"
+                  className={linkclassName}
+                  >About</NavLink
                 >
               </div>
             </div>

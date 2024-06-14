@@ -14,7 +14,7 @@ return (
     <>
         <section className="bg-zinc-800">
             <h1 className="font-poppins text-center text-[#FFFF00] text-6xl font-bold mb-4">Gallery</h1>
-            <div className="justify-center w-2/5 mx-auto">
+            <div className="justify-center w-4/5 sm:w-3/5 lg:w-2/5 mx-auto">
                 <p className="font-poppins text-center text-white text-xl mb-5">Success in the NBA is predicated on a few key quantifiable variables. View our gallery to see how these variables impact winning. </p>
             </div>
             

@@ -8,8 +8,15 @@ from rest_framework.response import Response
 # Create your views here.
 
 api_view(['GET'])
-def get_player(request): 
-    pass
+def get_player(request, id): 
+    playerData = Player.objects.all(id_icontains = id)
+    serializer = PlayerSerializer(playerData, context={'request': request})   
+    
+    return Response(serializer.data)
+
+
+    
+
 
 api_view(['POST'])
 def add_player(request): 

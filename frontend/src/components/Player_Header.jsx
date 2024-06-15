@@ -5,6 +5,19 @@
  */
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { ResponsiveLine } from "@nivo/line"
+import { ResponsiveBar } from "@nivo/bar"
+
+const theme = {
+  axis: {
+    textColor: '#ffffff',
+    fontSize: '14px',
+    tickColor: '#ffffff',
+  },
+  grid: {
+    stroke: '#888',
+    strokeWidth: 1
+  },
+};
 
 export default function Component() {
   return (
@@ -43,22 +56,16 @@ export default function Component() {
             <LineChart className="aspect-[4/3]" />
           </CardContent>
         </Card>
+
         <Card>
           <CardHeader>
-            <CardTitle>Steals</CardTitle>
+            <CardTitle>Stocks</CardTitle>
           </CardHeader>
           <CardContent>
             <LineChart className="aspect-[4/3]" />
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Blocks</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <LineChart className="aspect-[4/3]" />
-          </CardContent>
-        </Card>
+
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
@@ -66,23 +73,7 @@ export default function Component() {
             <CardTitle >Shooting Percentages</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#00b894]" />
-                <div>FG%</div>
-                <div className="font-bold">54.2%</div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#e17055]" />
-                <div>3P%</div>
-                <div className="font-bold">37.8%</div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#6c5ce7]" />
-                <div>FT%</div>
-                <div className="font-bold">73.4%</div>
-              </div>
-            </div>
+            <BarChart theme = {theme} className="aspect-square" />
           </CardContent>
         </Card>
         <Card>
@@ -114,12 +105,36 @@ export default function Component() {
                 <div className="text-gray-300 dark:text-gray-300">Net Rating</div>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <LineChart className="w-full aspect-[4/1]" />
-                <div className="text-gray-300 dark:text-gray-300">Efficiency</div>
+              <div className="text-2xl font-bold">+3.6</div>
+              <div className="text-gray-300 dark:text-gray-300">OBPM</div>
               </div>
             </div>
           </CardContent>
         </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle></CardTitle>
+          </CardHeader>
+          <CardContent>
+          <div className="bg-gray-900 text-white rounded-lg p-6 max-w-md mx-auto">
+        <div className="flex items-center justify-between">
+          <div className="text-4xl font-bold">
+            <span className="text-[#00b894]">Superstar</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <TrophyIcon className="w-8 h-8 text-[#00b894]" />
+            <span className="text-lg font-medium">Grade</span>
+          </div>
+        </div>
+        <p className="mt-4 text-gray-400 text-sm">
+          Our model grades LeBron James as a "Superstar" player, indicating that he is a top-15 player in the league, capable of being a number one option on a championship team.
+        </p>
+      </div>
+          </CardContent>
+        </Card>
+
+        
       </div>
     </div>
   )
@@ -165,6 +180,7 @@ function LineChart(props) {
         axisBottom={{
           tickSize: 0,
           tickPadding: 16,
+          
         }}
         axisLeft={{
           tickSize: 0,
@@ -195,5 +211,98 @@ function LineChart(props) {
         role="application"
       />
     </div>
+  )
+}
+
+function BarChart(props) {
+  return (
+    <div {...props}>
+      <ResponsiveBar
+        
+        data={[
+          { name: "FG%", count: 54.5 },
+          { name: "3P%", count: 37.8},
+          { name: "FT%", count: 73.4},
+          { name: "TS%", count:  60.2},
+          
+        ]}
+        keys={["count"]}
+        indexBy="name"
+        margin={{ top: 0, right: 0, bottom: 40, left: 40 }}
+        padding={0.3}
+        colors={({ data }) => {
+          switch (data.name) { // Accessing the 'name' property directly from the data object
+            case "FG%":
+              return "#00b894"; // Green
+            case "3P%":
+              return "#e17055"; // Orange
+            case "FT%":
+              return "#6c5ce7"; // Purple
+            case "TS%":
+              return "#0984e3"; // Blue
+            default:
+              return "#dfe6e9"; // Light gray for any other potential bars
+          }
+        }}
+        axisBottom={{
+          tickSize: 0,
+          tickPadding: 16,
+          textColor: "#ffffff", // Setting text color to white
+        }}
+        axisLeft={{
+          tickSize: 0,
+          tickValues: 4,
+          tickPadding: 16,
+          textColor: "#ffffff", // Setting text color to white
+
+        }}
+        gridYValues={4}
+        theme={{
+          tooltip: {
+            chip: {
+              borderRadius: "9999px",
+            },
+            container: {
+              fontSize: "12px",
+              textTransform: "capitalize",
+              borderRadius: "6px",
+            },
+          },
+          grid: {
+            line: {
+              stroke: "#f3f4f6",
+            },
+          },
+        }}
+        tooltipLabel={({ id }) => `${id}`}
+        enableLabel={false}
+        role="application"
+        ariaLabel="A bar chart showing data"
+      />
+    </div>
+  )
+}
+
+function TrophyIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+      <path d="M4 22h16" />
+      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+    </svg>
   )
 }

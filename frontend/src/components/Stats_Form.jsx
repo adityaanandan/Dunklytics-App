@@ -1,6 +1,27 @@
 import React from 'react'
-
+import { useState } from 'react'
 const Stats_Form = () => {
+  const [player_name, setPlayerName] = useState('') 
+  
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+    console.log(JSON.stringify({ "name": player_name }))
+    const response = await fetch('http://127.0.0.1:8000/player', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "name": player_name }), 
+    }
+    )
+    
+    const data = await response.json();
+    console.log(data);
+    
+
+
+
+  }
 return (
     <>
       <section className="bg-zinc-800 justify-content-center py-7" >
@@ -9,18 +30,21 @@ return (
           <p className="font-poppins text-center text-white text-xl mb-5">Our app allows you to view real-time visualizations and charts of your favorite players. Using classification models and charting technologies, we allow you to have a seamless experience exploring how sports interacts with statistics. Get started by typing in a player name and their corresponding team. </p>
         </div>
 
-        <form className="max-w-sm mx-auto">
-    <div className="mb-5">
-        <label for="username-success" className="font-poppins block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Player Name</label>
-        <input type="text" id="username-success" className="font-poppins bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"  />
-        <p className="font-poppins mt-2 text-sm text-green-600 dark:text-green-500"><span className="font-medium">Alright!</span> Valid Player</p>
-    </div>
+        <form className="max-w-sm mx-auto" onSubmit = {handleSubmit}>
 
     <div>
-        <label for="username-success" className="font-poppins block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Player Team</label>
-        <input type="text" id="username-success" className="font-poppins bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500" />
-        <p className="font-poppins mt-2 text-sm text-green-600 dark:text-green-500"><span className="font-medium">Alright!</span> Valid Team</p>
+        <label htmlFor="username-success" className="font-poppins block mb-2 text-sm font-medium text-white">Player Name</label>
+        <input onChange = {(e) => setPlayerName(e.target.value)} type="text" id="username-success" className="font-poppins bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500" />
     </div>
+
+    <div className="text-center py-3">
+    <button type = "submit" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+      <span class="font-poppins relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+          Submit
+      </span>
+    </button>
+    </div>
+   
     
     </form>
       </section>

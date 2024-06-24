@@ -11,7 +11,7 @@ const Logo = () => {
         </div>
 
         <div className="flex justify-center items-center pt-5 md:pt-10">
-            <button class="font-poppins text-xl bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded-full">
+            <button className="font-poppins text-xl bg-red-500 hover:bg-red-700 text-white py-1 px-4 rounded-full">
                 See More
             </button>
         </div>

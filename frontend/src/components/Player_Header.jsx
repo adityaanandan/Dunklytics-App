@@ -6,6 +6,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { ResponsiveLine } from "@nivo/line"
 import { ResponsiveBar } from "@nivo/bar"
+import  shot_chart  from "../assets/shot_chart.png"
 
 
 
@@ -21,7 +22,13 @@ const theme = {
   },
 };
 
-export default function Component() {
+export default function Component({ data }) {
+
+  const map1 = new Map();
+  map1.set("Guard", "PG")
+  map1.set("Forward", "SF")
+  map1.set("Center", "C")
+  const position = map1.get(data.pos)
   return (
     <div className="flex flex-col gap-8 p-6 md:p-10 bg-zinc-800 text-white">
       <div className="flex items-center gap-4">
@@ -29,8 +36,8 @@ export default function Component() {
           🏀
         </div>
         <div>
-          <h1 className="font-poppins text-2xl font-bold">LeBron James</h1>
-          <div className="font-poppins text-gray-300 dark:text-gray-300">PF | Los Angeles Lakers</div>
+          <h1 className="font-poppins text-2xl font-bold">{data.name}</h1>
+          <div className="font-poppins text-gray-300 dark:text-gray-300">{`${position} | ${data.team}`}</div>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -39,7 +46,7 @@ export default function Component() {
             <CardTitle>Points</CardTitle>
           </CardHeader>
           <CardContent>
-            <LineChart className="aspect-[4/3]" />
+            <LineChart className="aspect-[4/3]" data = {data.pts}/>
           </CardContent>
         </Card>
         <Card>
@@ -47,7 +54,7 @@ export default function Component() {
             <CardTitle>Rebounds</CardTitle>
           </CardHeader>
           <CardContent>
-            <LineChart className="aspect-[4/3]" />
+            <LineChart className="aspect-[4/3]" data = {data.rebs}/>
           </CardContent>
         </Card>
         <Card>
@@ -55,7 +62,7 @@ export default function Component() {
             <CardTitle>Assists</CardTitle>
           </CardHeader>
           <CardContent>
-            <LineChart className="aspect-[4/3]" />
+            <LineChart className="aspect-[4/3]" data = {data.asts}/>
           </CardContent>
         </Card>
 
@@ -64,7 +71,7 @@ export default function Component() {
             <CardTitle>Stocks</CardTitle>
           </CardHeader>
           <CardContent>
-            <LineChart className="aspect-[4/3]" />
+            <LineChart className="aspect-[4/3]" data = {data.stocks}/>
           </CardContent>
         </Card>
 
@@ -83,7 +90,7 @@ export default function Component() {
             <CardTitle>Shot Chart</CardTitle>
           </CardHeader>
           <CardContent>
-            <LineChart className="aspect-square" />
+            <img src={shot_chart} alt="" />
           </CardContent>
         </Card>
       </div>
@@ -143,32 +150,20 @@ export default function Component() {
 }
 
 function LineChart(props) {
+  const chartData = Object.entries(props.data).slice(-5).map(([key, value]) => ({ x: key, y: value }));
+  
+
+
+  
   return (
     <div {...props}>
       <ResponsiveLine
         data={[
           {
             id: "Desktop",
-            data: [
-              { x: "Jan", y: 43 },
-              { x: "Feb", y: 137 },
-              { x: "Mar", y: 61 },
-              { x: "Apr", y: 145 },
-              { x: "May", y: 26 },
-              { x: "Jun", y: 154 },
-            ],
+            data: chartData,
           },
-          {
-            id: "Mobile",
-            data: [
-              { x: "Jan", y: 60 },
-              { x: "Feb", y: 48 },
-              { x: "Mar", y: 177 },
-              { x: "Apr", y: 78 },
-              { x: "May", y: 96 },
-              { x: "Jun", y: 204 },
-            ],
-          },
+         
         ]}
         margin={{ top: 10, right: 10, bottom: 40, left: 40 }}
         xScale={{

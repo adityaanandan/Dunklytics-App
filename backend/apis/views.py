@@ -19,7 +19,7 @@ import json
 @api_view(['GET', 'POST'])
 def get_player_details(request):
 
-
+    
     name = "LeBron James"
     name_to_id = "2544"
     if request.method == 'POST': 
@@ -39,16 +39,22 @@ def get_player_details(request):
     
     name = career_info['resultSets'][0]['rowSet'][0][3]
     team = career_info['resultSets'][0]['rowSet'][0][22] + " " +  career_info['resultSets'][0]['rowSet'][0][19]
+    pos = career_info['resultSets'][0]['rowSet'][0][15]
 
     fg = career_stats['resultSets'][0]['rowSet'][-1][11]
     three = career_stats['resultSets'][0]['rowSet'][-1][14]
     ft = career_stats['resultSets'][0]['rowSet'][-1][17]
     pts, asts, rebs, stocks = player.NbaScraper.get_player_base_stats(name_to_id)
+
+
+
     # pts = json.dumps(pts, indent=4)
     # asts = json.dumps(asts, indent=4)
     # rebs = json.dumps(rebs, indent=4)
     # Get the latest FG% from the career_stats_json
-    return Response({'name': name, 'team': team, 'fg': fg, 'three': three, 'ft': ft, 'pts': pts, 'asts': asts, 'rebs': rebs, 'stocks': stocks})
+    
+    
+    return Response({'name': name, 'pos':pos, 'team': team, 'fg': fg, 'three': three, 'ft': ft, 'pts': pts, 'asts': asts, 'rebs': rebs, 'stocks': stocks})
 
 api_view(['GET', 'POST'])
 def shot_charts(request): 

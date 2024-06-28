@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "plasma-card-427400-b5",
+  "private_key_id": "eee851f36220b291a7384b456c106d5afc73e737",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCx7ivai7SjGQdC\ny4D5Pp5BJY36U7k97CTalz6DXWy/G99vUi+p8obYUlQBiCK4Jmk58qjhwQmke+js\nb/SKkECOk+lfCmM73StOBKDas4cwtaBJUkP736E3UXmagKjS6DVgdM7ZN1r4pDV/\ngk8STkqMHoZt4eI8teBc9NtclnYJEM9MpvgDQox865IKi+lyjVIp5T+d/u+T9ezz\nxubimxG31H0QgGFlf5qV+MrPcNLz+RTnqCcGvRibEfdyNnmKFi3IiILwb0aKmd/w\n+xny2NQVNC3v2/JrZA1K7+Vt9O/IdjciF+z5QR9U5j4mSHcz862z0uG0gyZRDu+/\nBvkbwTWxAgMBAAECggEAIlvzRPsocTxijg/9QmRIrBzj61yij2YcAcgmDrkKSGdK\nANW2lZNbXcecKEWRKs1kEYgd+6ZKxeQVqR6/csiDZuUCMlOvsP43IBQ9ua3kY9AW\n+UG1FhzrpWKK4H6K21ty/0LfNMv/ObeACzTvLwJGXAODAxIVHZMjld/Ewn7doUc2\nrBaY2i8JqRtZhZOl/ZC/W12Tcbzyz3xjD4JKAPyvs3G571515/XM2BAimwZ/K72k\nEnFZLS9Ud7tdondSxdQIYF05f9jbFo+Tpwx/Qt4YQQA6zcJoCY5LIncuqkrj7FWM\nhFLVMHB74tXwSe9OA6bSybX+H6XqHJC/SM/z7s59DwKBgQDhVTEoItKW0U+MFWz5\nfwvrA7z2DV+38l7ga5gfwni2FJbA0HKz2wb+jFWSBMRiz2qF76Vaw00M3hKDn+f6\npdgFS5KPjIPEysc+ILHeALZXmbkTMhjAOU6xz6E4PbZBAcq/8ffrdZxZNBtI/9WP\nQS8ahIvwDYCYSHY+0IkC0ZBmHwKBgQDKJW8OlDWAui8M7Xsv+DlXSajVEtWE9JfW\nQFMTzj73mH3Cs30ZqcAHms6MLgsXut4UdtL5xDYWqQvDmwX7dwDkdlV7X77nlJ8t\nS7TVKH3BEI3ZmJawDBFRZIDpN3SEIVBKDQ1VusCXahLWKbQnVbKsj3o/FWz7J+cW\n1K0EtRbKLwKBgGHlumKepnGh5HaPBHZtLQdg62LXMqPfaDsGY+RAgGNTFKAWsA7V\n9Pb4j2DOM2hehwBDuspxGXOis9Z9zbKHBRBf4f/9423HT8L9P2mdU5tBjTf6xugU\nvczg0UF3Bky985FrFfQ1d8UFr2kKxYTkpAtYVNfpddozeTQXM7+Gvr6vAoGAC+pO\n9IYJ7U+MLG/nHfm8r4d4+y5EBbVBKfDatMUocwG7D/nyesvFtO0MFbk1EC4EnyIt\n52kIYyeNuPbvUFZAaDcNbNtE7nOVOl9HBnV/jBzEr7nN0Ay2DJ0m+Bg7tvobuHGy\ngoYiigpHl/YXV2Y2xPMkGonRxbAhb/gTRr7B3CMCgYEAuMpUhh6n/L/xrKVXZv84\nqUQ/c2ccdoPqNPHKWIkn20BLpV+zD8c6vcFeUWMunYOH9pOQsqrW4eqEnagcR/Tp\nmjbk6QtX7Ng1Ql5xOiSj3coBLng4ZFmP4InHk+D2EQUAemc7mNGgHgWG3BqWn/mg\nxLinTclrnFYfCGVW/VpB2Aw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cloudstorage2@plasma-card-427400-b5.iam.gserviceaccount.com",
+  "client_id": "100272574131230425115",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudstorage2%40plasma-card-427400-b5.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

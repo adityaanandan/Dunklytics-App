@@ -7,6 +7,9 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { ResponsiveLine } from "@nivo/line"
 import { ResponsiveBar } from "@nivo/bar"
 import  shot_chart  from "../assets/shot_chart.png"
+import { data } from "autoprefixer";
+
+import { useEffect, useState } from "react";
 
 
 
@@ -22,7 +25,39 @@ const theme = {
   },
 };
 
+
+
+
+
+
+
 export default function Component({ data }) {
+
+  const [imageUrl, setImageUrl] = useState('');
+
+
+  
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const response = await fetch('https://storage.googleapis.com/dunklytics-shotcharts/201939.png');
+        if (!response.ok) {
+            throw new Error(`Failed to retrieve image from URL, status code: ${response.status}`);
+        }
+        const base64String = await response.text(); 
+        console.log(base64String)
+        const mimeType = response.headers.get('content-type');
+        setImageUrl(`data:${mimeType};base64,${base64String}`);
+    } catch (error) {
+        console.error('Error fetching image:', error);
+    }
+    };
+
+    fetchImage();
+  }, []);
+
+
 
   const map1 = new Map();
   map1.set("Guard", "PG")
@@ -82,7 +117,7 @@ export default function Component({ data }) {
             <CardTitle >Shooting Percentages</CardTitle>
           </CardHeader>
           <CardContent>
-            <BarChart theme = {theme} className="aspect-square" />
+            <BarChart ft = {data.ft} three = {data.three} fg = {data.fg} className="aspect-square" />
           </CardContent>
         </Card>
         <Card>
@@ -90,7 +125,7 @@ export default function Component({ data }) {
             <CardTitle>Shot Chart</CardTitle>
           </CardHeader>
           <CardContent>
-            <img src={shot_chart} alt="" />
+          <img src={imageUrl} className="w-full h-auto object-cover block" />    
           </CardContent>
         </Card>
       </div>
@@ -98,7 +133,7 @@ export default function Component({ data }) {
         <Card>
           <CardHeader>
             <CardTitle>Advanced Analytics</CardTitle>
-          </CardHeader>
+          </CardHeader> 
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col items-center gap-2">
@@ -217,9 +252,9 @@ function BarChart(props) {
       <ResponsiveBar
         
         data={[
-          { name: "FG%", count: 54.5 },
-          { name: "3P%", count: 37.8},
-          { name: "FT%", count: 73.4},
+          { name: "FG%", count: props.fg *100},
+          { name: "3P%", count: props.three *100},
+          { name: "FT%", count: props.ft *100},
           { name: "TS%", count:  60.2},
           
         ]}

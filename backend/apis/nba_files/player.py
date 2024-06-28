@@ -2,8 +2,13 @@ import pandas as pd
 
 from difflib import SequenceMatcher
 
+
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+import io
+import urllib, base64
+import os
+
 
 class ShotCharts:
         def __init__(self) -> None:
@@ -46,46 +51,46 @@ class ShotCharts:
         
         @staticmethod
         def volume_chart(df: pd.DataFrame, name: str, season=None, 
-                            RA=True,
-                            extent=(-250, 250, 422.5, -47.5),
-                            gridsize=25, cmap="plasma"):
-                    fig = plt.figure(figsize=(3.6, 3.6), facecolor='black', edgecolor='black', dpi=100)
-                    ax = fig.add_axes([0, 0, 1, 1], facecolor='black')
+                        RA=True,
+                        extent=(-250, 250, 422.5, -47.5),
+                        gridsize=25, cmap="plasma"):
+                fig = plt.figure(figsize=(3.6, 3.6), facecolor='black', edgecolor='black', dpi=100)
+                ax = fig.add_axes([0, 0, 1, 1], facecolor='black')
 
-                    # Plot hexbin of shots
-                    if RA == True:
-                            x = df.LOC_X
-                            y = df.LOC_Y + 60
-                            # Annotate player name and season
-                            plt.text(-250, 440, f"{name}", fontsize=21, color='white',
-                                    fontname='Franklin Gothic Medium')
-                            plt.text(-250, 410, "Shot Volume", fontsize=12, color='white',
-                                    fontname='Franklin Gothic Book')
-                            season = f"{season[0][:4]}-{season[-1][-2:]}"
-                            plt.text(-250, -20, season, fontsize=8, color='white')
+                # Plot hexbin of shots
+                if RA == True:
+                        x = df.LOC_X
+                        y = df.LOC_Y + 60
+                        # Annotate player name and season
+                        plt.text(-250, 440, f"{name}", fontsize=21, color='white',
+                                fontname='Franklin Gothic Medium')
+                        plt.text(-250, 410, "Shot Volume", fontsize=12, color='white',
+                                fontname='Franklin Gothic Book')
+                        season = f"{season[0][:4]}-{season[-1][-2:]}"
+                        plt.text(-250, -20, season, fontsize=8, color='white')
 
-                    else:
-                            cond = ~((-45 < df.LOC_X) & (df.LOC_X < 45) & (-40 < df.LOC_Y) & (df.LOC_Y < 45))
-                            x = df.LOC_X[cond]
-                            y = df.LOC_Y[cond] + 60
-                            # Annotate player name and season
-                            plt.text(-250, 440, f"{name}", fontsize=21, color='white',
-                                    fontname='Franklin Gothic Medium')
-                            plt.text(-250, 410, "Shot Volume", fontsize=12, color='white',
-                                    fontname='Franklin Gothic Book')
-                            plt.text(-250, 385, "(w/o restricted area)", fontsize=10, color='red')
-                            season = f"{season[0][:4]}-{season[-1][-2:]}"
-                            plt.text(-250, -20, season, fontsize=8, color='white')
+                else:
+                        cond = ~((-45 < df.LOC_X) & (df.LOC_X < 45) & (-40 < df.LOC_Y) & (df.LOC_Y < 45))
+                        x = df.LOC_X[cond]
+                        y = df.LOC_Y[cond] + 60
+                        # Annotate player name and season
+                        plt.text(-250, 440, f"{name}", fontsize=21, color='white',
+                                fontname='Franklin Gothic Medium')
+                        plt.text(-250, 410, "Shot Volume", fontsize=12, color='white',
+                                fontname='Franklin Gothic Book')
+                        plt.text(-250, 385, "(w/o restricted area)", fontsize=10, color='red')
+                        season = f"{season[0][:4]}-{season[-1][-2:]}"
+                        plt.text(-250, -20, season, fontsize=8, color='white')
 
-                            
-                    hexbin = ax.hexbin(x, y, cmap=cmap,
-                            bins="log", gridsize=25, mincnt=2, extent=(-250, 250, 422.5, -47.5))
+                        
+                hexbin = ax.hexbin(x, y, cmap=cmap,
+                                        bins="log", gridsize=25, mincnt=2, extent=(-250, 250, 0, 470))
 
-                    # Draw court
-                    ax = ShotCharts.create_court(ax, 'white')
+                # Draw court
+                ax = ShotCharts.create_court(ax, 'white')
 
-                
-                    return fig
+              
+                return fig
 
 
 class NbaScraper:
@@ -217,7 +222,7 @@ class NbaScraper:
         chart1 = ShotCharts.volume_chart(shot_data, real_name, seasons)
         return chart1 
     
-    @staticmethod
-    def save_shot_chart(sc):
-        pass
     
+
+
+       

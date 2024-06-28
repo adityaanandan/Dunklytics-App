@@ -4,3 +4,5 @@ node_modules
 .conda
 db.sqlite3
 gcp_dunklytics.json
+
+backend/gcp_dunklytics.json

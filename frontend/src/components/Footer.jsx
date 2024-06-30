@@ -14,7 +14,7 @@ const Footer = () => {
       <li>
         <a
           className="font-poppins text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-          href="#"
+          href="/"
         >
           Home
         </a>
@@ -23,7 +23,7 @@ const Footer = () => {
       <li>
         <a
           className="font-poppins text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-          href="#"
+          href="/stats"
         >
           Stats
         </a>
@@ -32,7 +32,7 @@ const Footer = () => {
       <li>
         <a
           className="font-poppins text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-          href="#"
+          href="/picks"
         >
           Picks
         </a>
@@ -41,7 +41,7 @@ const Footer = () => {
       <li>
         <a
           className="font-poppins text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-          href="#"
+          href="/about"
         >
           About
         </a>

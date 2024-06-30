@@ -215,7 +215,7 @@ class NbaScraper:
         career = NbaScraper.get_player_career(id)
         teams = [team]
         team_ids = list(set(career[career.TEAM_ABBREVIATION.isin(teams)].TEAM_ID.values))
-        seasons = ["2022-23"]
+        seasons = ["2023-24"]
         shot_data = NbaScraper.get_shot_data(id, team_ids, seasons)
         shot_data.tail()
 

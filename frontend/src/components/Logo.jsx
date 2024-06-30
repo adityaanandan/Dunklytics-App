@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from '../assets/title_pic.png'
+import { forwardRef } from 'react'
 
 const Logo = () => {
   return (

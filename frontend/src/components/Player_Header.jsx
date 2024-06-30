@@ -41,12 +41,11 @@ export default function Component({ data }) {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await fetch('https://storage.googleapis.com/dunklytics-shotcharts/201939.png');
+        const response = await fetch(`https://storage.googleapis.com/dunklytics-shotcharts/${data.id}.png`);
         if (!response.ok) {
             throw new Error(`Failed to retrieve image from URL, status code: ${response.status}`);
         }
         const base64String = await response.text(); 
-        console.log(base64String)
         const mimeType = response.headers.get('content-type');
         setImageUrl(`data:${mimeType};base64,${base64String}`);
     } catch (error) {

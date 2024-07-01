@@ -17,7 +17,6 @@ from google.cloud import storage
 
 import json
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r'C:/Users/adity/Downloads/Dunklytics_Project/backend/apis/gcp_dunklytics.json'
 
 
 

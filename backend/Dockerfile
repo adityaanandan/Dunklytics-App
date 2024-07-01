@@ -6,16 +6,16 @@ RUN apk update && \
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /app
+WORKDIR /backend
 
-COPY ./requirements.txt /app
+COPY ./requirements.txt /backend
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app
+COPY . /backend
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", ]
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
 
 
 

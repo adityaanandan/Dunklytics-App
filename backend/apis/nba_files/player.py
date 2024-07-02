@@ -185,7 +185,7 @@ class NbaScraper:
       from nba_api.stats.static import players
       real_name = NbaScraper.autocorrect(name)
       id = NbaScraper.get_json_from_name(real_name)['id']
-      return id 
+      return real_name, id 
     
     @staticmethod
     def get_player_base_stats(id): 

@@ -136,19 +136,19 @@ export default function Component({ data }) {
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col items-center gap-2">
-                <div className="text-2xl font-bold">24.2</div>
+                <div className="text-2xl font-bold">{data.per}</div>
                 <div className="text-gray-300 dark:text-gray-300">PER</div>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <div className="text-2xl font-bold">12.4</div>
+                <div className="text-2xl font-bold">{data.ws}</div>
                 <div className="text-gray-300 dark:text-gray-300">Win Shares</div>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <div className="text-2xl font-bold">+5.7</div>
-                <div className="text-gray-300 dark:text-gray-300">Net Rating</div>
+                <div className="text-2xl font-bold">{data.vorp}</div>
+                <div className="text-gray-300 dark:text-gray-300">VORP</div>
               </div>
               <div className="flex flex-col items-center gap-2">
-              <div className="text-2xl font-bold">+3.6</div>
+              <div className="text-2xl font-bold">{data.obpm}</div>
               <div className="text-gray-300 dark:text-gray-300">OBPM</div>
               </div>
             </div>

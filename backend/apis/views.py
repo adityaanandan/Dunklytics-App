@@ -25,8 +25,11 @@ import json
 
 
 
+
 @api_view(['GET', 'POST'])
 def get_player_details(request):
+
+   
 
     
     name = "LeBron James"
@@ -35,7 +38,30 @@ def get_player_details(request):
         body_unicode = request.body.decode('utf-8', errors='ignore')
         body = json.loads(body_unicode)
         name = body['name']
-        name_to_id = player.NbaScraper.get_player_id(name)
+        name, name_to_id = player.NbaScraper.get_player_id(name)
+
+    current_file = os.path.abspath(os.path.dirname(__file__))
+    data_path = os.path.join(current_file, 'advanced_data.csv')
+    data = pd.read_csv(data_path)
+        # Filter data for the given player name
+    player_data = data[data['Player'] == name]
+
+        # Check if the player appears twice
+    if len(player_data) > 1:
+            # Return the value where team is TOT
+        player_data = player_data[player_data['Tm'] == 'TOT']
+
+        # Get the OBPM, WS, PER, and VORP of the player
+    obpm = player_data['OBPM'].values[0]
+    ws = player_data['WS'].values[0]
+    per = player_data['PER'].values[0]
+    vorp = player_data['VORP'].values[0]
+
+
+    # Load advanced_data.csv
+    
+
+    # Continue with the rest of the code
     
     
     career_stats = playercareerstats.PlayerCareerStats(player_id=name_to_id)
@@ -54,7 +80,7 @@ def get_player_details(request):
     ft = career_stats['resultSets'][0]['rowSet'][-1][17]
     pts, asts, rebs, stocks = player.NbaScraper.get_player_base_stats(name_to_id)
 
-    team_dict = {"Golden State Warriors": "GSW", "Los Angeles Lakers" : "LAL", "Los Angeles Clippers" : "LAC", "Phoenix Suns" : "PHX", "Sacramento Kings" : "SAC", "Chicago Bulls" : "CHI", "Cleveland Cavaliers" : "CLE", "Detroit Pistons" : "DET", "Indiana Pacers" : "IND", "Milwaukee Bucks" : "MIL", "Dallas Mavericks" : "DAL", "Houston Rockets" : "HOU", "Memphis Grizzlies" : "MEM", "New Orleans Pelicans" : "NOP", "San Antonio Spurs" : "SAS", "Atlanta Hawks" : "ATL", "Charlotte Hornets" : "CHA", "Miami Heat" : "MIA", "Orlando Magic" : "ORL", "Washington Wizards" : "WAS", "Denver Nuggets" : "DEN", "Minnesota Timberwolves" : "MIN", "Oklahoma City Thunder" : "OKC", "Portland Trail Blazers" : "POR", "Utah Jazz" : "UTA", "Boston Celtics" : "BOS", "Brooklyn Nets" : "BKN", "New York Knicks" : "NYK", "Philadelphia 76ers" : "PHI", "Toronto Raptors" : "TOR", "Houston Rockets" : "HOU"}
+    team_dict = {"Golden State Warriors": "GSW", "Los Angeles Lakers" : "LAL", "LA Clippers" : "LAC", "Phoenix Suns" : "PHX", "Sacramento Kings" : "SAC", "Chicago Bulls" : "CHI", "Cleveland Cavaliers" : "CLE", "Detroit Pistons" : "DET", "Indiana Pacers" : "IND", "Milwaukee Bucks" : "MIL", "Dallas Mavericks" : "DAL", "Houston Rockets" : "HOU", "Memphis Grizzlies" : "MEM", "New Orleans Pelicans" : "NOP", "San Antonio Spurs" : "SAS", "Atlanta Hawks" : "ATL", "Charlotte Hornets" : "CHA", "Miami Heat" : "MIA", "Orlando Magic" : "ORL", "Washington Wizards" : "WAS", "Denver Nuggets" : "DEN", "Minnesota Timberwolves" : "MIN", "Oklahoma City Thunder" : "OKC", "Portland Trail Blazers" : "POR", "Utah Jazz" : "UTA", "Boston Celtics" : "BOS", "Brooklyn Nets" : "BKN", "New York Knicks" : "NYK", "Philadelphia 76ers" : "PHI", "Toronto Raptors" : "TOR", "Houston Rockets" : "HOU"}
     team_id = team_dict[team]
     
 
@@ -85,7 +111,7 @@ def get_player_details(request):
         print(f'File {id}.png uploaded successfully.')
     
     
-    return Response({'name': name, 'id': name_to_id, 'pos':pos, 'team': team, 'fg': fg, 'three': three, 'ft': ft, 'pts': pts, 'asts': asts, 'rebs': rebs, 'stocks': stocks})
+    return Response({'name': name, 'id': name_to_id, 'pos':pos, 'team': team, 'fg': fg, 'three': three, 'ft': ft, 'pts': pts, 'asts': asts, 'rebs': rebs, 'stocks': stocks, 'vorp': vorp, 'ws': ws, 'obpm': obpm, 'per': per})
 
 api_view(['GET', 'POST'])
 def shot_charts(request): 

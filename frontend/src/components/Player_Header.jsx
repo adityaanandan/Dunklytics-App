@@ -34,6 +34,7 @@ const theme = {
 export default function Component({ data }) {
 
   const [imageUrl, setImageUrl] = useState('');
+  const [makes_misses, setMakesMisses] = useState('');
 
 
   
@@ -42,12 +43,19 @@ export default function Component({ data }) {
     const fetchImage = async () => {
       try {
         const response = await fetch(`https://storage.googleapis.com/dunklytics-shotcharts/${data.id}.png`);
-        if (!response.ok) {
+        const response_mm = await fetch(`https://storage.googleapis.com/dunklytics-shotcharts/${data.id}_mm.png`);
+        if (!response.ok || !response_mm.ok) {
             throw new Error(`Failed to retrieve image from URL, status code: ${response.status}`);
         }
         const base64String = await response.text(); 
         const mimeType = response.headers.get('content-type');
         setImageUrl(`data:${mimeType};base64,${base64String}`);
+
+        const base64String_mm = await response_mm.text(); 
+        const mimeType_mm = response_mm.headers.get('content-type');
+        setMakesMisses(`data:${mimeType_mm};base64,${base64String_mm}`);
+
+
     } catch (error) {
         console.error('Error fetching image:', error);
     }
@@ -124,58 +132,57 @@ export default function Component({ data }) {
             <CardTitle>Shot Chart</CardTitle>
           </CardHeader>
           <CardContent>
-          <img src={imageUrl} className="w-full h-auto object-cover block" />    
+          <img src={makes_misses} className="w-full h-auto object-cover block" />    
           </CardContent>
         </Card>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <Card>
+  <CardHeader>
+    <CardTitle>Advanced Analytics</CardTitle>
+  </CardHeader> 
+  <CardContent>
+    <div className="grid grid-cols-2 gap-4">
+      <div className="flex flex-col items-center gap-2 justify-between h-full">
+        <div className="text-6xl font-bold">{data.per}</div>
+        <div className="text-gray-300 dark:text-gray-300">PER</div>
+      </div>
+      <div className="flex flex-col items-center gap-2 justify-between h-full">
+        <div className="text-6xl font-bold">{data.ws}</div>
+        <div className="text-gray-300 dark:text-gray-300">Win Shares</div>
+      </div>
+      <div className="flex flex-col items-center gap-2 justify-between h-full">
+        <div className="text-6xl font-bold">{data.vorp}</div>
+        <div className="text-gray-300 dark:text-gray-300">VORP</div>
+      </div>
+      <div className="flex flex-col items-center gap-2 justify-between h-full">
+        <div className="text-6xl font-bold">{data.obpm}</div>
+        <div className="text-gray-300 dark:text-gray-300">OBPM</div>
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
         <Card>
           <CardHeader>
-            <CardTitle>Advanced Analytics</CardTitle>
-          </CardHeader> 
+            <CardTitle>Player Progression</CardTitle>
+          </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col items-center gap-2">
-                <div className="text-2xl font-bold">{data.per}</div>
-                <div className="text-gray-300 dark:text-gray-300">PER</div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="text-2xl font-bold">{data.ws}</div>
-                <div className="text-gray-300 dark:text-gray-300">Win Shares</div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="text-2xl font-bold">{data.vorp}</div>
-                <div className="text-gray-300 dark:text-gray-300">VORP</div>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-              <div className="text-2xl font-bold">{data.obpm}</div>
-              <div className="text-gray-300 dark:text-gray-300">OBPM</div>
-              </div>
-            </div>
+            <LineChart className="aspect-[4/3]" data = {data.asts}/>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle></CardTitle>
+            <CardTitle>Volume Chart</CardTitle>
           </CardHeader>
           <CardContent>
-          <div className="bg-gray-900 text-white rounded-lg p-6 max-w-md mx-auto">
-        <div className="flex items-center justify-between">
-          <div className="text-4xl font-bold">
-            <span className="text-[#00b894]">Superstar</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <TrophyIcon className="w-8 h-8 text-[#00b894]" />
-            <span className="text-lg font-medium">Grade</span>
-          </div>
-        </div>
-        <p className="mt-4 text-gray-400 text-sm">
-          Our model grades LeBron James as a "Superstar" player, indicating that he is a top-15 player in the league, capable of being a number one option on a championship team.
-        </p>
-      </div>
+          <img src={imageUrl} className="w-full h-auto object-cover block" />    
+          
           </CardContent>
         </Card>
+
+
 
         
       </div>

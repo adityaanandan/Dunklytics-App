@@ -23,8 +23,9 @@ import json
 
 # Create your views here.
 
-
-
+@api_view(['GET', 'POST'])
+def get_picks(request):
+    pass
 
 @api_view(['GET', 'POST'])
 def get_player_details(request):
@@ -108,6 +109,20 @@ def get_player_details(request):
         buf.seek(0)
         image_as_a_string = base64.b64encode(buf.read())
         your_file_contents = blob.upload_from_string(image_as_a_string, content_type='image/png')
+        print(f'File {id}.png uploaded successfully.')
+
+    
+    blob_mm = bucket.blob(f'{name_to_id}_mm.png')  # This defines the path where the file will be stored in the bucket
+    if blob_mm.exists():
+        print(f'File {id}_mm.png already exists in the bucket. Skipping upload.')
+    else: 
+
+        buf = io.BytesIO()
+        charty = player.NbaScraper.get_makes_misses(name, team_id)
+        charty.savefig(buf, format='png')
+        buf.seek(0)
+        image_as_a_string = base64.b64encode(buf.read())
+        your_file_contents = blob_mm.upload_from_string(image_as_a_string, content_type='image/png')
         print(f'File {id}.png uploaded successfully.')
     
     

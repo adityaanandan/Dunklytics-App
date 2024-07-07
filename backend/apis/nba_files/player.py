@@ -91,6 +91,31 @@ class ShotCharts:
 
               
                 return fig
+        
+        @staticmethod
+        def makes_misses_chart(df: pd.DataFrame, name: str, season=None):
+                # Create figure and axes
+                fig = plt.figure(figsize=(3.6, 3.6), facecolor='black', edgecolor='black', dpi=100)
+                ax = fig.add_axes([0, 0, 1, 1], facecolor='black')
+
+                plt.text(-250, 450, f"{name}", fontsize=21, color='white',
+                        fontname='Franklin Gothic Medium')
+                plt.text(-250, 425, "Misses", fontsize=12, color='red',
+                        fontname='Franklin Gothic Book')
+                plt.text(-170, 425, "&", fontsize=12, color='white',
+                        fontname='Franklin Gothic Book')
+                plt.text(-150, 425, "Buckets", fontsize=12, color='green',
+                        fontname='Franklin Gothic Book')
+                season = f"{season[0][:4]}-{season[-1][-2:]}"
+                plt.text(-250, -20, season, fontsize=8, color='white')
+
+
+                ax = ShotCharts.create_court(ax, 'white')
+                sc = ax.scatter(df.LOC_X, df.LOC_Y + 60, c=df.SHOT_MADE_FLAG, cmap='RdYlGn', s=12)
+                
+                
+
+                return fig
 
 
 class NbaScraper:
@@ -209,7 +234,7 @@ class NbaScraper:
         
 
     @staticmethod
-    def get_shot_chart(name, team):
+    def get_shot_charts(name, team):
         real_name = NbaScraper.autocorrect(name)
         id = NbaScraper.get_json_from_name(real_name)['id']
         career = NbaScraper.get_player_career(id)
@@ -219,8 +244,28 @@ class NbaScraper:
         shot_data = NbaScraper.get_shot_data(id, team_ids, seasons)
         shot_data.tail()
 
-        chart1 = ShotCharts.volume_chart(shot_data, real_name, seasons)
-        return chart1 
+        chart = ShotCharts.volume_chart(shot_data, real_name, seasons)
+        
+        
+        return chart
+    
+    @staticmethod
+    def get_makes_misses(name, team):
+        real_name = NbaScraper.autocorrect(name)
+        id = NbaScraper.get_json_from_name(real_name)['id']
+        career = NbaScraper.get_player_career(id)
+        teams = [team]
+        team_ids = list(set(career[career.TEAM_ABBREVIATION.isin(teams)].TEAM_ID.values))
+        seasons = ["2023-24"]
+        shot_data = NbaScraper.get_shot_data(id, team_ids, seasons)
+        shot_data.tail()
+
+        chart = ShotCharts.makes_misses_chart(shot_data, real_name, seasons)
+        
+        
+        return chart
+    
+    
     
     
 

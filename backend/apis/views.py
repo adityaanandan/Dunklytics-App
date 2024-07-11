@@ -17,22 +17,8 @@ from google.cloud import storage
 
 import json
 
-
-
-
-
-# Create your views here.
-
 @api_view(['GET', 'POST'])
-def get_picks(request):
-    pass
-
-@api_view(['GET', 'POST'])
-def get_player_details(request):
-
-   
-
-    
+def get_player_details(request):    
     name = "LeBron James"
     name_to_id = "2544"
     if request.method == 'POST': 
@@ -53,14 +39,33 @@ def get_player_details(request):
         player_data = player_data[player_data['Tm'] == 'TOT']
 
         # Get the OBPM, WS, PER, and VORP of the player
-    obpm = player_data['OBPM'].values[0]
-    ws = player_data['WS'].values[0]
-    per = player_data['PER'].values[0]
-    vorp = player_data['VORP'].values[0]
+    try: 
+        obpm = player_data['OBPM'].values[0]
+        ws = player_data['WS'].values[0]
+        per = player_data['PER'].values[0]
+        vorp = player_data['VORP'].values[0]
+    except IndexError as e: 
+        obpm = 0
+        ws = 0
+        per = 0
+        vorp = 0
 
+    advanced_average = (obpm + ws + per + vorp) / 4
+
+    grade = "Role Player"
+
+    if advanced_average < 3.2: 
+        grade = "Role Player"
+    elif advanced_average >= 3.2 and advanced_average < 4.5: 
+        grade = "Starter"
+    elif advanced_average >= 4.5 and advanced_average < 6.5: 
+        grade = "All-Star"
+    else: 
+        grade = "Superstar"
 
     # Load advanced_data.csv
     
+
 
     # Continue with the rest of the code
     
@@ -70,6 +75,7 @@ def get_player_details(request):
     career_info = career_info.get_dict()
     # Convert career_stats to a JSON object
     career_stats = career_stats.get_dict()
+
 
     
     name = career_info['resultSets'][0]['rowSet'][0][3]
@@ -104,7 +110,7 @@ def get_player_details(request):
     else:
             # File does not exist, proceed with upload
         buf = io.BytesIO()
-        charty = player.NbaScraper.get_shot_chart(name, team_id)
+        charty = player.NbaScraper.get_shot_charts(name, team_id)
         charty.savefig(buf, format='png')
         buf.seek(0)
         image_as_a_string = base64.b64encode(buf.read())
@@ -126,28 +132,12 @@ def get_player_details(request):
         print(f'File {id}.png uploaded successfully.')
     
     
-    return Response({'name': name, 'id': name_to_id, 'pos':pos, 'team': team, 'fg': fg, 'three': three, 'ft': ft, 'pts': pts, 'asts': asts, 'rebs': rebs, 'stocks': stocks, 'vorp': vorp, 'ws': ws, 'obpm': obpm, 'per': per})
-
-api_view(['GET', 'POST'])
-def shot_charts(request): 
-    # get player name 
-    # get player id from name 
-    # check if shot chart is already in vm bucket 
-    # if is, simply return the url 
-    # else, generate the shot chart
-    # send to vm bucket 
-    # return url of the shot chart to the frontend 
-    pass 
-
-
-def grader(request): 
-    pass 
+    return Response({'name': name, 'grade': grade, 'id': name_to_id, 'pos':pos, 'team': team, 'fg': fg, 'three': three, 'ft': ft, 'pts': pts, 'asts': asts, 'rebs': rebs, 'stocks': stocks, 'vorp': vorp, 'ws': ws, 'obpm': obpm, 'per': per})
 
 
 
-    
-def create_shotchart(request): 
-    pass
+
+
 
 
 

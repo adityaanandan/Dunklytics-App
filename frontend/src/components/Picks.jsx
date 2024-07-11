@@ -8,10 +8,10 @@ const Picks = () => {
     const teamID = teams.find(team => team.teamName === 'Golden State Warriors').teamId;
     const teamID2 = teams.find(team => team.teamName === 'Los Angeles Lakers').teamId; 
 return (
-    <section className="bg-zinc-800 text-white h-screen">
+    <section className="bg-zinc-800 text-white">
         <h1 className="font-poppins text-center text-[#FFFF00] text-6xl font-bold mb-4">Our Picks</h1>
         <div className="justify-center w-4/5 sm:w-3/5 lg:w-2/5 mx-auto">
-                <p className="font-poppins text-center text-white text-xl mb-5">Here's a sneak peak of our new picks function, which predicts NBA games on a daily basis, we will be rolling out this feature next October when NBA season begins. To learn more about the modeling used to generate these predictions, check out our github repo.</p>
+                <p className="font-poppins text-center text-white text-xl mb-5">Here's a sneak peak of our new picks function, which predicts NBA games on a daily basis, we will be rolling out this feature next October when the NBA season begins. To learn more about the modeling used to generate these predictions, check out our github repo.</p>
         </div>
         <div className="flex flex-col justify-center items-center mx-20">
             <Card className="[calc(100%-10px)] md:w-[calc(100%-40px)] mx-4">

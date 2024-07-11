@@ -143,6 +143,8 @@ class NbaScraper:
         career = playercareerstats.PlayerCareerStats(player_id=player_id)
         return career.get_data_frames()[0]
     
+    
+    
     @staticmethod
     def get_shot_data(id: int, team_ids: list, seasons: list) -> list:
         """ Get the shot data of a player from his id and seasons
@@ -212,6 +214,8 @@ class NbaScraper:
       id = NbaScraper.get_json_from_name(real_name)['id']
       return real_name, id 
     
+    def predict_player_progression(name):
+         pass    
     @staticmethod
     def get_player_base_stats(id): 
         from nba_api.stats.endpoints import playercareerstats
@@ -265,9 +269,80 @@ class NbaScraper:
         
         return chart
     
+    @staticmethod
+    def get_player_progression(name):
+        import json
+        f = open('data/ranks_2021.json', encoding="utf8") 
+        data_2021 = json.load(f)
+        f2 = open('data/ranks_2022.json', encoding="utf8")
+        data_2022 = json.load(f2)
+        f3 = open('data/ranks_2023.json', encoding="utf8")
+        data_2023 = json.load(f3)
+
+        if name not in data_2023:
+                dicty = {"2021-22": 0, "2022-23": 0, "2023-24": 0, "2024-25": 0, "2025-26": 0, "2026-27": 0} 
+                return dicty       
+
+
+
+        f_raw = open('data/raw_stats2023.json', encoding="utf8")
+        data_raw = json.load(f_raw)
+        age_tax = 0
+        decrease_tax = 0
+        increase_tax = 0
+
+        grade = 0.0
+        grade2 = 0.0
+        grade3 = 0.0
+
+        if name in data_2021:
+                sample_line = data_2021[name]
+                grade = sample_line['grade']
+
+        if name in data_2022: 
+                sample_line2 = data_2022[name]
+                grade2 = sample_line2['grade']
+
+        if name in data_2023: 
+                sample_line3 = data_2023[name]
+                grade3 = sample_line3['grade']
+
+        # predict player progression
+
+        raw_player_data = data_raw[name]
+        age = int(raw_player_data['Age'])
+
+        if age >= 34 : 
+                age_tax = 2.0
+        if (grade - grade3 > 3): 
+                decrease_tax = 3.0
+        if (grade3 - grade > 5): 
+                increase_tax = 0.0
+        if (grade3 - grade) <1 and (grade3 - grade) > 0:
+                increase_tax =1.0 
+        
+        if (grade3 - grade > 3.0): 
+                increase_tax = 2.0
+
+        grade4 = grade3 - age_tax + increase_tax - decrease_tax
+        grade5 = grade4 - age_tax + increase_tax - decrease_tax
+        grade6 = grade5 - age_tax + increase_tax - decrease_tax
+        dicty = {"2021-22": grade, "2022-23": grade2, "2023-24": grade3, "2024-25": grade4, "2025-26": grade5, "2026-27": grade6}
+        return dicty
     
-    
-    
+
+
+if __name__ == "main": 
+        print(NbaScraper.get_player_progression("LeBron James"))
+        #print(NbaScraper.get_shot_charts("LeBron James", "LAL"))
+        #print(NbaScraper.get_makes_misses("LeBron James", "LAL"))
+        #print(NbaScraper.get_player_id("LeBron James"))
+        #print(NbaScraper.get_player_base_stats(2544))
+        #print(NbaScraper.get_all_n
+        
+        
+        
+        
 
 
        

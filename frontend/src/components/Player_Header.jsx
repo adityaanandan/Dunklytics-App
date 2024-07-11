@@ -35,6 +35,7 @@ export default function Component({ data }) {
 
   const [imageUrl, setImageUrl] = useState('');
   const [makes_misses, setMakesMisses] = useState('');
+  const [player_grade, setPlayerGrade] = useState('');
 
 
   
@@ -163,15 +164,120 @@ export default function Component({ data }) {
   </CardContent>
 </Card>
 
-        <Card>
+<Card>
           <CardHeader>
-            <CardTitle>Player Progression</CardTitle>
+            <CardTitle></CardTitle>
           </CardHeader>
           <CardContent>
-            <LineChart className="aspect-[4/3]" data = {data.asts}/>
+          <div className="bg-gray-900 text-white rounded-lg p-6  max-w-md mx-auto">
+        <div className="flex items-center justify-between">
+
+        {data.grade === "Superstar" && (
+              <div className="text-4xl font-bold">
+              <span className="text-[#00b894]">Superstar</span>
+            </div>
+            )}
+
+        {data.grade === "All-Star" && (
+              <div className="text-4xl font-bold">
+              <span className="text-[#FFEA00]">All-Star</span>
+            </div>
+            )}
+
+        {data.grade === "Starter" && (
+              <div className="text-4xl font-bold">
+              <span className="text-[#F28C28]">Starter</span>
+            </div>
+            )}
+
+        {data.grade === "Role Player" && (
+              <div className="text-4xl font-bold">
+              <span className="text-[#D22B2B]">Role-Player</span>
+            </div>
+            )}
+
+          
+
+          
+        {data.grade === "Superstar" && (
+              <div className="flex items-center gap-2">
+              <TrophyIcon className="w-8 h-8 text-[#00b894]" />
+              <span className="text-lg font-medium">Grade</span>
+            </div>
+            )}
+
+        {data.grade === "All-Star" && (
+              <div className="flex items-center gap-2">
+              <TrophyIcon className="w-8 h-8 text-[#FFEA00]" />
+              <span className="text-lg font-medium">Grade</span>
+            </div>
+            )}
+
+        {data.grade === "Starter" && (
+              <div className="flex items-center gap-2">
+              <TrophyIcon className="w-8 h-8 text-[#F28C28]" />
+              <span className="text-lg font-medium">Grade</span>
+            </div>
+            )}
+
+        {data.grade === "Role Player" && (
+              <div className="flex items-center gap-2">
+              <TrophyIcon className="w-8 h-8 text-[#D22B2B]" />
+              <span className="text-lg font-medium">Grade</span>
+            </div>
+            )}
+
+        
+          
+          
+        </div>
+
+        {data.grade === "Superstar" && (
+           <p className="mt-4 text-gray-400 text-sm">
+          Our model grades {data.name} as a "Superstar" player, indicating that he is a top-15 player in the league, capable of being a number one option on a championship team.
+        </p>
+
+        )}
+
+        {data.grade === "All-Star" && (
+           <p className="mt-4 text-gray-400 text-sm">
+           Our model grades {data.name} as an "All-Star" player, indicating that he is a top-30 player in the league, capable of being a number two option on a championship team.
+        </p>
+
+        )}
+
+        {data.grade === "Starter" && (
+           <p className="mt-4 text-gray-400 text-sm">
+           Our model grades {data.name} as an "Starter-level" player, indicating that he is a top-100 player in the league, capable of being a starter on a playoff team.
+        </p>
+
+        )}
+
+        {data.grade === "Role Player" && (
+           <p className="mt-4 text-gray-400 text-sm">
+           Our model grades {data.name} as an "Role Player", indicating they might be a rotation player on a playoff team. 
+        </p>
+
+        )}
+       
+      </div>
+        <br />
+      <div className="bg-gray-900 text-white rounded-lg py-4 p-6 max-w-md mx-auto">
+        
+
+      <p className="mt-4 text-gray-400 text-sm">
+          Our model works by taking into account player age, advanced stats, recent progression, and similar historical players and uses random forest classification to evaluate the player's grade. 
+        </p>
+
+       
+       
+      </div>
           </CardContent>
         </Card>
 
+
+
+       
         <Card>
           <CardHeader>
             <CardTitle>Volume Chart</CardTitle>

@@ -15,7 +15,7 @@ COPY . /backend
 
 EXPOSE 8000
 
-CMD ["gunicorn", "--bind", ":8000", "--workers", "4", "backend.wsgi:application"]
+CMD ["gunicorn", "backend.wsgi:application"]
 
 
 

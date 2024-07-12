@@ -37,7 +37,7 @@
 <h3 align="center">Dunklytics</h3>
 
   <p align="center">
-    NBA web-app combinining visualization and modeling, allowing users to explore NBA statistics and ML!
+    NBA web-app combining visualization and modeling, allowing users to explore NBA statistics and ML!
     <br />
     <a href="https://github.com/adityaanandan/Dunklytics-App"><strong>Explore the docs »</strong></a>
     <br />
@@ -83,7 +83,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
 
 
 

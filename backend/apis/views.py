@@ -33,6 +33,8 @@ def get_player_details(request):
         # Filter data for the given player name
     player_data = data[data['Player'] == name]
 
+    print(name)
+
         # Check if the player appears twice
     if len(player_data) > 1:
             # Return the value where team is TOT

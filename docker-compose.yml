@@ -16,6 +16,6 @@ services:
     volumes: 
     - ./backend:/backend
 
-    environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=/backend/apis/gcp_dunklytics.json 
-
+    
+    env_file: 
+      - ./backend/backend/.env

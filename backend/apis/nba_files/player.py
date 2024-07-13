@@ -142,7 +142,7 @@ class NbaScraper:
         """ Get the career of a player from his id
         """
         from nba_api.stats.endpoints import playercareerstats
-        career = playercareerstats.PlayerCareerStats(player_id=player_id)
+        career = playercareerstats.PlayerCareerStats(player_id=player_id, proxy=my_proxy)
         return career.get_data_frames()[0]
     
     

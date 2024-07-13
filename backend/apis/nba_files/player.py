@@ -10,6 +10,8 @@ import urllib, base64
 import os
 
 
+my_proxy = os.getenv("PROXY_URL")
+
 class ShotCharts:
         def __init__(self) -> None:
                 pass
@@ -219,7 +221,7 @@ class NbaScraper:
     @staticmethod
     def get_player_base_stats(id): 
         from nba_api.stats.endpoints import playercareerstats
-        player_stats = playercareerstats.PlayerCareerStats(player_id=id)
+        player_stats = playercareerstats.PlayerCareerStats(player_id=id, proxy=my_proxy)
         player_stats = player_stats.get_dict()
         pts_dict = {}
         ast_dict = {}

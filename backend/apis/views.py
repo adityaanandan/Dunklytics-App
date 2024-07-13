@@ -16,6 +16,7 @@ import os
 from google.cloud import storage
 
 import json
+import os
 
 @api_view(['GET', 'POST'])
 def get_player_details(request):    
@@ -71,12 +72,15 @@ def get_player_details(request):
 
     # Continue with the rest of the code
     
+    my_proxy = os.getenv('PROXY_URL')
     
-    career_stats = playercareerstats.PlayerCareerStats(player_id=name_to_id)
-    career_info = commonplayerinfo.CommonPlayerInfo(player_id=name_to_id)
+    career_stats = playercareerstats.PlayerCareerStats(player_id=name_to_id, timeout=30, proxy=my_proxy)
+    career_info = commonplayerinfo.CommonPlayerInfo(player_id=name_to_id, timeout=30, proxy=my_proxy)
     career_info = career_info.get_dict()
     # Convert career_stats to a JSON object
     career_stats = career_stats.get_dict()
+
+    print("Checked!")
 
 
     

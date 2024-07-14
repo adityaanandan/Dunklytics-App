@@ -156,6 +156,7 @@ class NbaScraper:
         for season in seasons:
             for team in team_ids:
                 shot_data = shotchartdetail.ShotChartDetail(
+                    proxy=my_proxy,
                     team_id=team,
                     player_id=id,
                     context_measure_simple='FGA',

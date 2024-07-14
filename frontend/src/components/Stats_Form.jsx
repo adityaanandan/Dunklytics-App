@@ -8,7 +8,7 @@ const Stats_Form = () => {
   
   const handleSubmit = async (e) =>{
     e.preventDefault()
-    const response = await fetch('http://localhost:8000/player', {
+    const response = await fetch('https://dunklytics-app.onrender.com/player', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
